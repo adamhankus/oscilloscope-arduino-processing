@@ -29,8 +29,8 @@
 
 #include <TimerOne.h>
 
-//--- constantepara configuração do prescaler ======
-// vou usar o PS_16
+//--- Prescaler settings ======
+// I will use PS_16
 const unsigned char PS_16 = (1 << ADPS2);
 const unsigned char PS_32 = (1 << ADPS2) | (1 << ADPS0);
 const unsigned char PS_64 = (1 << ADPS2) | (1 << ADPS1);
@@ -65,25 +65,25 @@ int vb[400]; // (100*4=400) buffer stores the measure values of all channels
 // (old) int chi[]={0,102,204,306}; // channel init position on buffer vb[]
 int chi[]={0,100,200,300}; // channel init position on buffer vb[]
 int chq=4; // how many channels are ON
-int q=100; // quantidade de leituras
+int q=100; // Number of readings
 int qmax=100; // qtd maxima permitida para q
               // (new)  chq-qmax; 4-100; 3-130; 2-200; 1-400
               // (old)  chq-qmax; 4-102; 3-136; 2-204; 1-408
-int vtrigger=0; // tensao de trigger
-boolean Ch[]={true,true,true,true}; // ativa/desativa canais
+int vtrigger=0; // Voltage de trigger
+boolean Ch[]={true,true,true,true}; // ativa/desativa channels
 unsigned int dt=4; // 100us a 1000us(1ms) a 3000ms(3s)
-char unidade='m'; // unidade: m=milisegundo, u=microsegundo
+char unidade='m'; // Unit: m=milisegundo, u=microsegundo
 
 // obs: para leitura dos 3 canais o tempo mínimo é 380us 
 // obs: para leitura dos 4 canais o tempo mínimo é 500us
 //      1 canal deve dar 120us
 
-boolean varias=false; // v = varias
-boolean uma=false;    // u = uma
-boolean fluxo=false; // f = fluxo de dados (envia cada leitura sem guardar na memoria)
+boolean varias=false; // v = varias - several
+boolean uma=false;    // u = uma - ONE
+boolean fluxo=false; // f = fluxo de dados (envia cada leitura sem guardar na memoria) 
                       // velocidade limitada pela serial 115200
 unsigned long dtReal, tIni, tFim; // contador de final de tempo para o fluxo
-char canalTrigger='x'; // de '0','1','2','3' (canal do trigger), 'x'=não tem trigger
+char canalTrigger='x'; // de '0','1','2','3' (canal do trigger), 'x'= No trigger
 
 
 //--------------- Ler Resistor/Capacitor ---------
@@ -106,13 +106,13 @@ void setup() {
  //---------- configura o preescaler do ADC ======
  ADCSRA &= ~PS_128;  //limpa configuração da biblioteca do arduino
  
- // valores possiveis de prescaler só deixar a linha com prescaler desejado
+ // valores possiveis de prescaler só deixar a linha com prescaler desejado - Desired prescaler
  // PS_16, PS_32, PS_64 or PS_128
  //ADCSRA |= PS_128; // 64 prescaler
  //   ADCSRA |= PS_64; // 64 prescaler
  //  ADCSRA |= PS_32; // 32 prescaler
   ADCSRA |= PS_16; // 16 prescaler
-//=================================================
+ //=================================================
   
   //definir Timer1 pwm(pino9) e pino10 para monitorar freq
   pinMode(10,OUTPUT);
